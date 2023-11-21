@@ -15,9 +15,9 @@ function App() {
       <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/check-in" component={CheckIn} />
-          <Route path="/check-out" component={CheckOut} />
-          <Route path="/checked-out" component={CheckedOutBooks} />
+          <Route path="/checkin" element={<CheckIn/>} />
+          <Route path="/checkout" element={<CheckOut/>} />
+          <Route path="/checkedoutbook" element={<CheckedOutBooks/>} />
           <Route path="/booklist" element={<BookList/>} />
         </Routes>
       <Footer />
