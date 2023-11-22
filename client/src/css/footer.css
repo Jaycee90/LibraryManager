@@ -26,6 +26,7 @@
         flex-direction: column;
         justify-content: center;
         max-width: 1550px;
+        height: 100px;
         margin: 0 auto;
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 10px;    
