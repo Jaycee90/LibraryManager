@@ -28,8 +28,8 @@ function CheckIn() {
         author: bookInfo.author,
         publisher: bookInfo.publisher,
         isbn: bookInfo.isbn,
-        status: bookInfo.status,
-        checkedOutBy: bookInfo.checkedOutBy,
+        avail: bookInfo.avail,
+        checkedInBy: bookInfo.checkedInBy,
         dueDate: bookInfo.dueDate,
       });
   
@@ -69,7 +69,7 @@ function CheckIn() {
       <div className="container">
         <div className="left-section">
         <label>
-            id:
+            Book ID:
             <input type="text" value={bookInfo.id} onChange={(e) => setBookInfo({ ...bookInfo, id: e.target.value })} />
           </label>
           <label>
@@ -92,7 +92,7 @@ function CheckIn() {
             <input type="text" value={bookInfo.isbn} onChange={(e) => setBookInfo({ ...bookInfo, isbn: e.target.value })} />
           </label>
           <label>
-            Checked out by:
+            Checked in by:
             <input type="text" value={bookInfo.checkedOutBy} onChange={(e) => setBookInfo({ ...bookInfo, checkedOutBy: e.target.value })} />
           </label>
           <label>

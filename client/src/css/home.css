@@ -307,7 +307,7 @@ body{
 }
 
 a.link:hover {
-    background-color: black;
+    background-color: rgba(216, 202, 202, 0.505);
     color: #ffffff;
     text-decoration: none;
 }

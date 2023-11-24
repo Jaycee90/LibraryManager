@@ -18,7 +18,9 @@ function CheckedOutBooks() {
       </div>
       <ul>
         {checkedOutBooks.map((book, index) => (
-          <li key={book.id}>{book.title}</li>
+          <li key={book.id}>
+            <strong>{book.title}</strong> by {book.author} (Due Date: {book.dueDate})
+          </li>
         ))}
       </ul>
     </div>

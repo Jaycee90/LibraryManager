@@ -1,64 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function CheckOut() {
-  const [bookInfo, setBookInfo] = useState({
-    title: '',
-    author: '',
-    isbn: '',
-  });
+  const [books, setBooks] = useState([]);
 
-  // eslint-disable-next-line
-  const [selectedBookId, setSelectedBookId] = useState('');
+  useEffect(() => {
+    // Fetch the list of available books from the server
+    fetch('http://localhost:5000/books?avail=true')
+      .then(response => response.json())
+      .then(data => setBooks(data))
+      .catch(error => console.error('Error fetching available books:', error));
+  }, []);
 
-  const handleCheckOut = async () => {
+  const handleCheckout = async (bookId) => {
     try {
-      // Use the dynamically obtained book ID
-      const bookId = selectedBookId;
-
-      // Send a request to the server to check out the book with the provided information
-      const response = await fetch(`http://localhost:5000/books/checkout/${bookId}`, {
-        method: 'PUT', // Use PUT for check-out
+      // Prompt the user for to enter the name.
+      const who = prompt("Please enter your name or user ID:");
+      const dueDate = prompt("Enter the date");
+  
+      if (!who) {
+        // User cancelled or entered an empty value
+        alert('Checkout cancelled or invalid input.');
+        return;
+      }
+  
+      const response = await fetch(`http://localhost:5000/books/${bookId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(bookInfo),
+        body: JSON.stringify({
+          who: who,
+          avail: false,
+          dueDate: dueDate,
+        }),
       });
-
+  
       if (response.ok) {
-        // Handle check out success 
-        console.log('Book checked out successfully');
+        // If checkout is successful, update the client-side state
+        setBooks(books =>books.map(book =>
+          book.id === bookId ? { ...book, avail: false } : book));
+          alert ('Book checked out successfully');
       } else {
-        // Handle check out error 
-        console.error('Failed to check out book');
+        alert ('Failed to check out the book');
       }
     } catch (error) {
-      console.error('Error checking out book:', error);
+      console.error('Error checking out the book:', error);
     }
   };
+  
 
   return (
     <div>
+      {/* Display list of available books */}
       <div className="Welc-box">
-        <p>Here you can check out a book</p>
+        <p>Below is a list of books that are currently available for checkout.</p>
       </div>
-      <form>
-        {/* Assume you have a way to set the selected book ID */}
-        <input type="hidden" value={selectedBookId} />
-
-        <label>
-          Title:
-          <input type="text" value={bookInfo.title} onChange={(e) => setBookInfo({ ...bookInfo, title: e.target.value })} />
-        </label>
-        <label>
-          Author:
-          <input type="text" value={bookInfo.author} onChange={(e) => setBookInfo({ ...bookInfo, author: e.target.value })} />
-        </label>
-        <label>
-          ISBN:
-          <input type="text" value={bookInfo.isbn} onChange={(e) => setBookInfo({ ...bookInfo, isbn: e.target.value })} />
-        </label>
-        <button type="button" onClick={handleCheckOut}>Check Out</button>
-      </form>
+      <ul>
+        {books.map((book, index) => (
+          <li key={book.id}>
+            {book.title}
+            <button onClick={() => handleCheckout(book.id)}>Check Out</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
