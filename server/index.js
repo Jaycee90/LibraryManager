@@ -48,13 +48,13 @@ app.get('/books', async (req, res) => {
     try {
       if (avail === 'true') {
         const availableBooks = await libraryBooks.find({ avail: true }).toArray();
-        res.json(availableBooks.map(({ id, title }) => ({ id, title })));
+        res.json(availableBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
       } else if (avail === 'false') {
         const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
         res.json(checkedOutBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
       } else {
         const allBooks = await libraryBooks.find().toArray();
-        res.json(allBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
+        res.json(allBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
       }
     } catch (err) {
       res.status(500).json({ message: err.message });

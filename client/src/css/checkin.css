@@ -1,5 +1,5 @@
 .Welc-box {
-    background: linear-gradient(42deg, rgb(221, 93, 166) 30%, rgb(52, 87, 180) 40%);
+    background: linear-gradient(42deg, rgb(221, 93, 166) 30%, rgb(87, 198, 72) 80%);
     padding: 20px;
     margin-bottom: 20px;
     border: 5px solid #36e1a5;
@@ -58,3 +58,26 @@
     background-color: #0056b3;
   }
   
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {background-color: #f2f2f2;}
+
+  .nameColumn{
+    width: 45%;
+  }
+
+  .authorColumn{
+    width: 30%;
+  }
+
+  .datecolumn{
+    width: 25;
+  }
