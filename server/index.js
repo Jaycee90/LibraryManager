@@ -20,8 +20,8 @@ async function start() {
     db = client.db("Library"); // specifies the database name
     libraryBooks = db.collection("books"); // specifies the collection name
 
-    console.log(`Listening on port 5000...`);
-    app.listen(5000);
+    console.log(`Listening on port 5001...`);
+    app.listen(5001);
 }
 
 // Middleware to enable CORS
@@ -48,13 +48,17 @@ app.get('/books', async (req, res) => {
     try {
       if (avail === 'true') {
         const availableBooks = await libraryBooks.find({ avail: true }).toArray();
-        res.json(availableBooks.map(({ id, title }) => ({ id, title })));
+        res.json(availableBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
       } else if (avail === 'false') {
         const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
         res.json(checkedOutBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
       } else {
         const allBooks = await libraryBooks.find().toArray();
+<<<<<<< HEAD
         res.json(allBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
+=======
+        res.json(allBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
+>>>>>>> d9a2421789625b1c2da298f81fa928f128bcbb7b
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -87,6 +91,7 @@ app.post('/books', async (req, res) => {
 
   });
   
+<<<<<<< HEAD
 // Update a book in the library, including checkout
 app.put('/books/:id', async (req, res) => {
   try {
@@ -115,6 +120,21 @@ app.put('/books/:id', async (req, res) => {
       res.status(400).json({ message: err.message });
   }
 });
+=======
+//   // Update a book in the library
+//   app.put('/books/:id', async (req, res) => {
+//     try {
+//       const result = await libraryBooks.updateOne({ id: req.params.id }, { $set: req.body });
+//       if (result.modifiedCount > 0) {
+//         res.status(200).json({ message: `Book ${req.params.id} updated` });
+//       } else {
+//         res.status(404).json({ message: 'Book not found' });
+//       }
+//     } catch (err) {
+//       res.status(400).json({ message: err.message });
+//     }
+// });
+>>>>>>> d9a2421789625b1c2da298f81fa928f128bcbb7b
   
 // Delete a book by ID
 app.delete('/books/:id', async (req, res) => {
@@ -130,5 +150,38 @@ app.delete('/books/:id', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
+=======
+// Update a book in the library, including checkout
+app.put('/books/:id', async (req, res) => {
+  try {
+      const bookId = req.params.id;
+      const { who, avail, dueDate } = req.body;
+
+      // Check if the book is available for checkout
+      const book = await libraryBooks.findOne({ id: bookId, avail: true });
+
+      if (!book) {
+          return res.status(404).json({ message: 'Book not found or not available for check-out' });
+      }
+
+      // Update the book details and set it as checked out
+      const result = await libraryBooks.updateOne(
+          { id: bookId, avail: true },
+          { $set: { who, avail, dueDate } }
+      );
+
+      if (result.modifiedCount > 0) {
+          res.status(200).json({ message: `Book ${bookId} checked out successfully` });
+      } else {
+          res.status(500).json({ message: 'Failed to update book status' });
+      }
+  } catch (err) {
+      res.status(400).json({ message: err.message });
+  }
+});
+
+
+>>>>>>> d9a2421789625b1c2da298f81fa928f128bcbb7b
 // Start the server and connect to MongoDB
 start();
