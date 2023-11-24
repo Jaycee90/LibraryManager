@@ -81,9 +81,9 @@ function CheckOut() {
         </div>
 
         <div className='right-section'>
-          <h2 style={{color: '#000'}}>Explore our collection of books in a serene environment, just like in an arboretum. 
+          <p>Explore our collection of books in a serene environment, just like in an arboretum. 
             Take a moment to discover new worlds through reading.
-          </h2>
+          </p>
 
           <img
             src={arboretum}

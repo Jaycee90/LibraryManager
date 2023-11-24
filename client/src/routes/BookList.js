@@ -44,10 +44,10 @@ function BookList() {
         </div>
 
         <div className='right-section'>
-          <h2 style={{color: '#000'}}>Immerse yourself in the beauty of nature; 
+          <p>Immerse yourself in the beauty of nature; 
             grab a book, find a peaceful spot, and let the captivating pages transport 
             you to new worlds as you enjoy the tranquility of the great outdoors.
-          </h2>
+          </p>
 
           <img
             src={natureImage}
