@@ -17,15 +17,6 @@ function CheckedOutBooks() {
       <div className="Welc-box">
         <p>The following books are Checked out, we will notify you as soon as they are ready</p>
       </div>
-<<<<<<< HEAD
-      <ul>
-        {checkedOutBooks.map((book, index) => (
-          <li key={book.id}>
-            <strong>{book.title}</strong> by {book.author} (Due Date: {book.dueDate})
-          </li>
-        ))}
-      </ul>
-=======
       <div className='container'>
         <div className='left-section'>
           <table style={{color: '#000000'}}>
@@ -60,7 +51,6 @@ function CheckedOutBooks() {
         </div>
       </div>
  
->>>>>>> d9a2421789625b1c2da298f81fa928f128bcbb7b
     </div>
   );
 }
