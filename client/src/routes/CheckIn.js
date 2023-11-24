@@ -8,33 +8,33 @@ function CheckIn() {
     author: '',
     publisher: '',
     isbn: '',
-    status: 'available', // Default to available, as it's a check-in operation
-    checkedOutBy: '',
+    avail: 'true', // Default to available, as it's a check-in operation
+    who: '',
     dueDate: '',
   });
 
   const handleCheckIn = async () => {
     try {
       // Validate input
-      if (!bookInfo.id || !bookInfo.title || !bookInfo.checkedOutBy || !bookInfo.dueDate) {
-        console.error('Please fill in all required fields.');
+      if (!bookInfo.id || !bookInfo.title || !bookInfo.who || !bookInfo.dueDate) {
+        alert ('Please fill in all required fields.');
         return;
       }
   
       // Serialize the bookInfo object to JSON
       const bookInfoJSON = JSON.stringify({
-        id: bookInfo.id,
+        id: bookInfo.id, // Ensure id is a number
         title: bookInfo.title,
         author: bookInfo.author,
         publisher: bookInfo.publisher,
         isbn: bookInfo.isbn,
-        status: bookInfo.status,
-        checkedOutBy: bookInfo.checkedOutBy,
+        avail: bookInfo.avail,
+        who: bookInfo.who,
         dueDate: bookInfo.dueDate,
       });
   
-      // Send the PUT request to the server for check-in
-      const response = await fetch(`http://localhost:5000/books`, {
+      // Send the POST request to the server for check-in
+      const response = await fetch(`http://localhost:5001/books`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,11 +45,23 @@ function CheckIn() {
       // Check the specific status code for a successful request
       if (response.ok) {
         // Handle check-in success
-        console.log('Book checked in successfully');
-        // You can add logic to clear the form or show a success message to the user
+        alert('Book checked in successfully');
+        
+        // Clear the form fields
+        setBookInfo({
+          id: '',
+          title: '',
+          author: '',
+          publisher: '',
+          isbn: '',
+          avail: true,
+          who: '',
+          dueDate: '',
+        });
+        
       } else if (response.status === 404) {
         // Book not found or not checked out
-        console.error('Book not found or not checked out');
+        alert('Book not found or not checked out');
       } else {
         // Handle other error cases
         console.error('Failed to check in book');
@@ -69,7 +81,7 @@ function CheckIn() {
       <div className="container">
         <div className="left-section">
         <label>
-            id:
+            Book ID:
             <input type="text" value={bookInfo.id} onChange={(e) => setBookInfo({ ...bookInfo, id: e.target.value })} />
           </label>
           <label>
@@ -92,8 +104,8 @@ function CheckIn() {
             <input type="text" value={bookInfo.isbn} onChange={(e) => setBookInfo({ ...bookInfo, isbn: e.target.value })} />
           </label>
           <label>
-            Checked out by:
-            <input type="text" value={bookInfo.checkedOutBy} onChange={(e) => setBookInfo({ ...bookInfo, checkedOutBy: e.target.value })} />
+            Checked in by:
+            <input type="text" value={bookInfo.who} onChange={(e) => setBookInfo({ ...bookInfo, who: e.target.value })} />
           </label>
           <label>
             Due Date:

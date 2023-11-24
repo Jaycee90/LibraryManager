@@ -20,8 +20,8 @@ async function start() {
     db = client.db("Library"); // specifies the database name
     libraryBooks = db.collection("books"); // specifies the collection name
 
-    console.log(`Listening on port 5000...`);
-    app.listen(5000);
+    console.log(`Listening on port 5001...`);
+    app.listen(5001);
 }
 
 // Middleware to enable CORS
@@ -50,11 +50,11 @@ app.get('/books', async (req, res) => {
         const availableBooks = await libraryBooks.find({ avail: true }).toArray();
         res.json(availableBooks.map(({ id, title }) => ({ id, title })));
       } else if (avail === 'false') {
-        const unavailableBooks = await libraryBooks.find({ avail: false }).toArray();
-        res.json(unavailableBooks.map(({ id, title }) => ({ id, title })));
+        const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
+        res.json(checkedOutBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
       } else {
         const allBooks = await libraryBooks.find().toArray();
-        res.json(allBooks.map(({ id, title }) => ({ id, title })));
+        res.json(allBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -86,19 +86,19 @@ app.post('/books', async (req, res) => {
     }
   });
   
-  // Update a book in the library
-  app.put('/books/:id', async (req, res) => {
-    try {
-      const result = await libraryBooks.updateOne({ id: req.params.id }, { $set: req.body });
-      if (result.modifiedCount > 0) {
-        res.status(200).json({ message: `Book ${req.params.id} updated` });
-      } else {
-        res.status(404).json({ message: 'Book not found' });
-      }
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-});
+//   // Update a book in the library
+//   app.put('/books/:id', async (req, res) => {
+//     try {
+//       const result = await libraryBooks.updateOne({ id: req.params.id }, { $set: req.body });
+//       if (result.modifiedCount > 0) {
+//         res.status(200).json({ message: `Book ${req.params.id} updated` });
+//       } else {
+//         res.status(404).json({ message: 'Book not found' });
+//       }
+//     } catch (err) {
+//       res.status(400).json({ message: err.message });
+//     }
+// });
   
 // Delete a book by ID
 app.delete('/books/:id', async (req, res) => {
@@ -114,50 +114,35 @@ app.delete('/books/:id', async (req, res) => {
     }
 });
 
-// app.post('/books/checkin/:id', async (req, res) => {
-//     const bookId = req.params.id;
-  
-//     try {
-//       console.log('Received check-in request for book with ID:', bookId);
-  
-//       const result = await libraryBooks.updateOne(
-//         { id: bookId, avail: false }, // Check if the book is checked out
-//         { $set: { avail: true, checkedOutBy: '', dueDate: '' } }
-//       );
-  
-//       if (result.modifiedCount > 0) {
-//         res.status(200).json({ message: `Book ${bookId} checked in successfully` });
-//       } else {
-//         res.status(404).json({ message: 'Book not found or not checked out' });
-//       }
-//     } catch (err) {
-//       console.error('Error during check-in:', err);
-//       res.status(500).json({ message: err.message });
-//     }
-//   });
-  
+// Update a book in the library, including checkout
+app.put('/books/:id', async (req, res) => {
+  try {
+      const bookId = req.params.id;
+      const { who, avail, dueDate } = req.body;
 
+      // Check if the book is available for checkout
+      const book = await libraryBooks.findOne({ id: bookId, avail: true });
 
-// // Update the availability status when checking out a book
-// app.put('/books/checkout/:id', async (req, res) => {
-//     const bookId = req.params.id;
-//     const { checkedOutBy, dueDate } = req.body;
+      if (!book) {
+          return res.status(404).json({ message: 'Book not found or not available for check-out' });
+      }
 
-//     try {
-//         const result = await libraryBooks.updateOne(
-//             { id: bookId, avail: true }, // Check if the book is available
-//             { $set: { avail: false, checkedOutBy, dueDate } }
-//         );
+      // Update the book details and set it as checked out
+      const result = await libraryBooks.updateOne(
+          { id: bookId, avail: true },
+          { $set: { who, avail, dueDate } }
+      );
 
-//         if (result.modifiedCount > 0) {
-//             res.status(200).json({ message: `Book ${bookId} checked out successfully` });
-//         } else {
-//             res.status(404).json({ message: 'Book not found or not available for check-out' });
-//         }
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// });
+      if (result.modifiedCount > 0) {
+          res.status(200).json({ message: `Book ${bookId} checked out successfully` });
+      } else {
+          res.status(500).json({ message: 'Failed to update book status' });
+      }
+  } catch (err) {
+      res.status(400).json({ message: err.message });
+  }
+});
+
 
 // Start the server and connect to MongoDB
 start();
