@@ -52,6 +52,9 @@ function CheckOut() {
   return (
     <div>
       {/* Display list of available books */}
+      <div className="Welc-box">
+        <p>Below is a list of books that are currently available for checkout.</p>
+      </div>
       <ul>
         {books.map((book, index) => (
           <li key={book.id}>
