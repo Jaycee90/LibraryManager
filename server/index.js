@@ -51,7 +51,7 @@ app.get('/books', async (req, res) => {
         res.json(availableBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
       } else if (avail === 'false') {
         const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
-        res.json(checkedOutBooks.map(({ id, title, author, dueDate }) => ({ id, title, author, dueDate })));
+        res.json(checkedOutBooks.map(({ id, title, author,isbn, dueDate }) => ({ id, title, author, dueDate })));
       } else {
         const allBooks = await libraryBooks.find().toArray();
         res.json(allBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
@@ -120,9 +120,13 @@ app.put('/books/:id', async (req, res) => {
       const bookId = req.params.id;
       const { who, avail, dueDate } = req.body;
 
+      console.log('Received PUT request:', { bookId, who, avail, dueDate });
+
       // Check if the book is available for checkout
       const book = await libraryBooks.findOne({ id: bookId, avail: true });
 
+      console.log('Found book:', book);
+      
       if (!book) {
           return res.status(404).json({ message: 'Book not found or not available for check-out' });
       }

@@ -71,13 +71,17 @@
   tr:nth-child(even) {background-color: #f2f2f2;}
 
   .nameColumn{
-    width: 45%;
+    width: 35%;
   }
 
   .authorColumn{
     width: 30%;
   }
 
-  .datecolumn{
+  .dateColumn{
+    width: 25;
+  }
+
+  .isbnColumn{
     width: 25;
   }
