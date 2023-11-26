@@ -51,7 +51,7 @@ app.get('/books', async (req, res) => {
         res.json(availableBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
       } else if (avail === 'false') {
         const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
-        res.json(checkedOutBooks.map(({ id, title, author,isbn, dueDate }) => ({ id, title, author, dueDate })));
+        res.json(checkedOutBooks.map(({ id, title, author,isbn, dueDate }) => ({ id, title, author, isbn, dueDate })));
       } else {
         const allBooks = await libraryBooks.find().toArray();
         res.json(allBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
