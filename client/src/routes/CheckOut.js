@@ -17,7 +17,6 @@ function CheckOut() {
       // Prompt the user for to enter the name.
       const who = prompt("Please enter your name or user ID:");
       const dueDate = prompt("Enter the date");
-
       if (!who) {
         // User cancelled or entered an empty value
         alert('Checkout cancelled or invalid input.');
@@ -35,7 +34,7 @@ function CheckOut() {
           dueDate: dueDate,
         }),
       });
-
+  
       if (response.ok) {
         // If checkout is successful, update the client-side state
         setBooks(books => books.map(book =>
@@ -48,9 +47,11 @@ function CheckOut() {
       console.error('Error checking out the book:', error);
     }
   };
+  
 
   return (
     <div>
+      {/* Display list of available books */}
       <div className="Welc-box">
         <p>Below is a list of books that are currently available for checkout</p>
       </div>
@@ -80,9 +81,9 @@ function CheckOut() {
         </div>
 
         <div className='right-section'>
-          <h2 style={{color: '#000'}}>Explore our collection of books in a serene environment, just like in an arboretum. 
+          <p>Explore our collection of books in a serene environment, just like in an arboretum. 
             Take a moment to discover new worlds through reading.
-          </h2>
+          </p>
 
           <img
             src={arboretum}

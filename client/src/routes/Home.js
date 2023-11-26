@@ -35,7 +35,7 @@ const Home = () => {
       />
 
       <h2>Time is ticking! Unlock 21st-century success at our library</h2>
-      <p style={{ borderRadius: "30px", backgroundColor: "rgba(226,100,172,1)", height: "40px", width: '200px', marginBottom: '2px', display: 'inline-block', textAlign: 'center', lineHeight: '50px', color: 'black' }}>
+      <p style={{ borderRadius: "30px", backgroundColor: "rgba(226,100,172,1)", height: "40px", width: '250px', marginBottom: '10px', display: 'inline-block', textAlign: 'center', lineHeight: '50px', color: 'black' }}>
         <strong>Current Time: {currentTime.toLocaleTimeString()}</strong>
       </p>
     </div>
