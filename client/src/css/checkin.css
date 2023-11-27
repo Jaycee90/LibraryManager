@@ -1,6 +1,6 @@
 .Welc-box {
-    background: linear-gradient(42deg, rgb(221, 93, 166) 30%, rgb(87, 198, 72) 80%); 
-    /* background: linear-gradient(42deg, rgba(161, 57, 109, 0.391) 30%, rgb(0, 153, 204) 90%); */
+    /* background: linear-gradient(42deg, rgb(221, 93, 166) 30%, rgb(87, 198, 72) 80%);  */
+    background: linear-gradient(42deg, rgb(0, 153, 204) 0%, rgb(290, 104, 153) 30%, rgb(125, 125, 190) 90%);
     padding: 20px;
     margin-bottom: 20px;
     border: 2px solid #36e1a5;
