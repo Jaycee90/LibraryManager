@@ -14,18 +14,20 @@ const Home = () => {
   }, []);
 
   const linearGradient = {
-    background: 'linear-gradient(42deg, rgb(110, 106, 226) 80%, rgb(42, 42, 227) 40%, rgb(210, 22, 128) 100%)',
+    background: 'linear-gradient(42deg, rgb(0, 153, 204) 30%, rgb(290, 104, 153) 30%, rgb(125, 125, 190) 90%)',
+    //background: 'linear-gradient(42deg, rgb(0, 153, 204) 100%, rgb(42, 42, 227) 30%, rgb(210, 22, 128) 60%',
+
     textAlign: 'center',
     marginTop: '5px',
   };
 
   return (
     <div style={linearGradient}>
-      <h2 style={{ fontWeight: 'bold' }}>From the Hill Village to Computer Science in America</h2>
+      <h2 style={{ fontWeight: 'bold', fontSize: '34px' }}>From the Hill Village to Computer Science</h2>
       
-      <p style={{ maxWidth: '600px', margin: '0 auto', color: 'black' }}>
+      <p style={{ maxWidth: '700px', margin: '0 auto', color: 'black' }}>
         Born in the picturesque hills of Rwanda, a journey began that would lead to remarkable heights in the world of computer science. 
-        Explore the scenic beauty that shaped the early years and discover the path that led to success in America.
+        Explore the scenic beauty that shaped the early years and discover the path that led to success.
     </p>
       <img
         src={imageSource}
@@ -35,7 +37,7 @@ const Home = () => {
       />
 
       <h2>Time is ticking! Unlock 21st-century success at our library</h2>
-      <p style={{ borderRadius: "30px", backgroundColor: "rgba(226,100,172,1)", height: "40px", width: '250px', marginBottom: '10px', display: 'inline-block', textAlign: 'center', lineHeight: '50px', color: 'black' }}>
+      <p style={{ borderRadius: "30px", backgroundColor: "rgba(100,180,192,1)", height: "60px", width: '350px', marginBottom: '10px', display: 'inline-block', textAlign: 'center', lineHeight: '50px', color: 'black' }}>
         <strong>Current Time: {currentTime.toLocaleTimeString()}</strong>
       </p>
     </div>
