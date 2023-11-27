@@ -23,46 +23,32 @@ function CheckedOutBooks() {
         return;
       }
   
-      // Log the user input for debugging
-      console.log('User Input:', who);
-  
       // Send a PUT request to update book information and mark it as available
-      const response = await fetch(`http://localhost:5001/books/${bookId}`);
-      const book = await response.json();
-      console.log('Book Details:', book);
+      const returnResponse = await fetch(`http://localhost:5001/books/${bookId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          who: null,
+          avail: true,
+          dueDate: '', // clear the date for return
+        }),
+      });
+      console.log('PUT Response:', returnResponse);
   
-      if (response.ok && book && book.avail === false && book.who === who) {
-        // The book is checked out to the specified user, proceed with the return
-        const returnResponse = await fetch(`http://localhost:5001/books/${bookId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            who: null,
-            avail: true,
-            dueDate: '', // clear the date for return
-          }),
-        });
-        console.log('PUT Response:', returnResponse);
-  
-        if (returnResponse.ok) {
-          // If the return is successful, update the client-side state
-          setCheckedOutBooks(books => books.filter(book => book.id !==bookId));
-          alert('Book returned successfully');
-        } else {
-          alert('Failed to return the book');
-        }
+      if (returnResponse.ok) {
+        // If the return is successful, update the client-side state immediately
+        setCheckedOutBooks(books => books.filter(book => book.id !== bookId));
+        alert('Book returned successfully');
       } else {
-        alert('Book not found or not checked out to the specified user');
+        alert('Failed to return the book');
       }
     } catch (error) {
       console.error('Error returning the book:', error);
     }
-  };
+  };  
   
-  
-
   return (
     <div>
       <div className="Welc-box">
