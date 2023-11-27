@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import '../css/checkin.css';
 
 function CheckIn() {
@@ -8,15 +8,15 @@ function CheckIn() {
     author: '',
     publisher: '',
     isbn: '',
-    avail: 'true', // Default to available, as it's a check-in operation
+    avail: true, // Default to available, as it's a check-in operation
     who: '',
-    dueDate: '',
+    dueDate: null,
   });
 
   const handleCheckIn = async () => {
     try {
       // Validate input
-      if (!bookInfo.id || !bookInfo.title || !bookInfo.who || !bookInfo.dueDate) {
+      if (!bookInfo.id || !bookInfo.title || !bookInfo.who) {
         alert ('Please fill in all required fields.');
         return;
       }
@@ -107,10 +107,17 @@ function CheckIn() {
             Checked in by:
             <input type="text" value={bookInfo.who} onChange={(e) => setBookInfo({ ...bookInfo, who: e.target.value })} />
           </label>
+
           <label>
             Due Date:
-            <input type="text" value={bookInfo.dueDate} onChange={(e) => setBookInfo({ ...bookInfo, dueDate: e.target.value })} />
+            <input
+              type="text"
+              value={bookInfo.dueDate}
+              onChange={(e) => setBookInfo({ ...bookInfo, dueDate: e.target.value })}
+              placeholder="Leave it empty if you are checking in"
+            />
           </label>
+
           <button type="button" onClick={handleCheckIn}>Check In</button>
         </div>
       </div>

@@ -12,17 +12,53 @@ function CheckOut() {
       .catch(error => console.error('Error fetching available books:', error));
   }, []);
 
+  // const handleCheckout = async (bookId) => {
+  //   try {
+  //     // Prompt the user for to enter the name.
+  //     const who = prompt("Please enter your name or user ID:");
+  //     const dueDate = prompt("Enter the date");
+  //     if (!who) {
+  //       // User cancelled or entered an empty value
+  //       alert('Checkout cancelled or invalid input.');
+  //       return;
+  //     }
+
+  //     const response = await fetch(`http://localhost:5001/books/${bookId}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         who: who,
+  //         avail: false,
+  //         dueDate: dueDate,
+  //       }),
+  //     });
+  
+  //     if (response.ok) {
+  //       // If checkout is successful, update the client-side state
+  //       setBooks(books => books.map(book =>
+  //         book.id === bookId ? { ...book, avail: false } : book));
+  //       alert('Book checked out successfully');
+  //     } else {
+  //       alert('Failed to check out the book');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error checking out the book:', error);
+  //   }
+  // };
+
   const handleCheckout = async (bookId) => {
     try {
-      // Prompt the user for to enter the name.
+      // Prompt the user to enter their name.
       const who = prompt("Please enter your name or user ID:");
       const dueDate = prompt("Enter the date");
       if (!who) {
-        // User cancelled or entered an empty value
-        alert('Checkout cancelled or invalid input.');
+        // User canceled or entered an empty value
+        alert('Checkout canceled or invalid input.');
         return;
       }
-
+  
       const response = await fetch(`http://localhost:5001/books/${bookId}`, {
         method: 'PUT',
         headers: {
@@ -36,10 +72,17 @@ function CheckOut() {
       });
   
       if (response.ok) {
-        // If checkout is successful, update the client-side state
-        setBooks(books => books.map(book =>
-          book.id === bookId ? { ...book, avail: false } : book));
-        alert('Book checked out successfully');
+        // If checkout is successful, fetch the updated list of available books
+        const updatedResponse = await fetch('http://localhost:5001/books?avail=true');
+        const updatedData = await updatedResponse.json();
+  
+        if (updatedResponse.ok) {
+          // If the updated list is fetched successfully, update the client-side state
+          setBooks(updatedData);
+          alert('Book checked out successfully');
+        } else {
+          alert('Failed to fetch the updated list of books');
+        }
       } else {
         alert('Failed to check out the book');
       }
@@ -47,6 +90,7 @@ function CheckOut() {
       console.error('Error checking out the book:', error);
     }
   };
+  
   
 
   return (

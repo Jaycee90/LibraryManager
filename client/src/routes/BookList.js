@@ -25,6 +25,7 @@ function BookList() {
           <table style={{ color: '#000000' }}>
             <thead>
               <tr>
+                <th className='idColumn'>ID</th>
                 <th className='nameColumn'>Book Title</th>
                 <th className='authorColumn'>Author</th>
                 <th className='dateColumn'>ISBN</th>
@@ -35,6 +36,7 @@ function BookList() {
             <tbody>
               {books.map((book, index) => (
                 <tr key={book.id}>
+                  <td>{book.id}</td>
                   <td>{book.title}</td>
                   <td>{book.author}</td>
                   <td>{book.isbn}</td>
