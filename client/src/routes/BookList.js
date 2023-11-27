@@ -28,6 +28,7 @@ function BookList() {
                 <th className='nameColumn'>Book Title</th>
                 <th className='authorColumn'>Author</th>
                 <th className='dateColumn'>ISBN</th>
+                <th className='statusColumn'>Availability</th>
               </tr>
             </thead>
 
@@ -37,6 +38,7 @@ function BookList() {
                   <td>{book.title}</td>
                   <td>{book.author}</td>
                   <td>{book.isbn}</td>
+                  <td>{book.avail ? 'Available' : 'Checked out'}</td>
                 </tr>
               ))}
             </tbody>
