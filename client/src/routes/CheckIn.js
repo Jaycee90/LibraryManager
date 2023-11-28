@@ -82,11 +82,15 @@ function CheckIn() {
         <div className="left-section">
         <label>
             Book ID:
-            <input type="text" value={bookInfo.id} onChange={(e) => setBookInfo({ ...bookInfo, id: e.target.value })} />
+            <input 
+              type="text" value={bookInfo.id} onChange={(e) => setBookInfo({ ...bookInfo, id: e.target.value })} 
+              placeholder="Check the last book ID in Book List page and increment it by 1!"
+            />
           </label>
           <label>
             Title:
-            <input type="text" value={bookInfo.title} onChange={(e) => setBookInfo({ ...bookInfo, title: e.target.value })} />
+            <input type="text" 
+            value={bookInfo.title} onChange={(e) => setBookInfo({ ...bookInfo, title: e.target.value })} />
           </label>
           <label>
             Author:
