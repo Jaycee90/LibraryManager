@@ -1,27 +1,35 @@
 import express from "express";
 import cors from "cors";
 import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+import "./loadEnvironment.mjs";
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
 
-// MongoDB Atlas connection string
-const cs = "mongodb+srv://jnn56:Franklinjayce9@cluster0.4oefzyg.mongodb.net/?retryWrites=true&w=majority";
 
 let db;
 let libraryBooks;
 
 async function start() {
+  // Get a connection string from dotenv file
+  const uri = process.env.MONGODB_URI;
   // Connect to MongoDB Atlas
-  const client = new MongoClient(cs);
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  
+  try {
+    // Connects to the MongoDB Atlas cluster
+    await client.connect();
+    db = client.db("Library"); // specifies the database name
+    libraryBooks = db.collection("books"); // specifies the collection name
 
-  // Connects to the MongoDB Atlas cluster
-  await client.connect();
-  db = client.db("Library"); // specifies the database name
-  libraryBooks = db.collection("books"); // specifies the collection name
-
-  console.log(`Listening on port 5001...`);
-  app.listen(5001);
+    console.log(`Listening on port 5001...`);
+    app.listen(5001);
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
 }
 
 // Middleware to enable CORS
