@@ -21,7 +21,8 @@ export default function Navbar() {
         <a href="booklist">Book List</a>
         <a href="checkedoutbook">Checked Out Book</a>
         <a href="checkin">Check in</a>
-        <a href="checkout">Check Out</a>        
+        <a href="checkout">Check Out</a> 
+        <a href="home">Home</a>      
        
       </div>
     </div>

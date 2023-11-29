@@ -3,6 +3,7 @@ import cors from "cors";
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import "./loadEnvironment.mjs";
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 let db;
 let libraryBooks;
+let libraryUsers;
 
 async function start() {
   // Get a connection string from dotenv file
@@ -23,7 +25,8 @@ async function start() {
     // Connects to the MongoDB Atlas cluster
     await client.connect();
     db = client.db("Library"); // specifies the database name
-    libraryBooks = db.collection("books"); // specifies the collection name
+    libraryBooks = db.collection("books"); // specifies the collection name for Books
+    libraryUsers = db.collection("User"); // specify the collection name for users
 
     console.log(`Listening on port 5001...`);
     app.listen(5001);
@@ -40,6 +43,7 @@ app.use(function (req, res, next) {
   if (req.method === 'OPTIONS') res.sendStatus(200); // Preflight request handling
   else next();
 });
+
 
 // Middleware to parse request body as JSON
 app.use(express.json());
@@ -122,6 +126,65 @@ app.delete('/books/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Hash and salt password using bcrypt
+async function hashAndSaltPassword(password) {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+}
+
+// Add a new user to the library
+// app.post('/api/signup', async (req, res) => {
+//   const newUser = req.body;
+//   try {
+//     // Hash and salt the password before storing it
+//     // (use a proper library like bcrypt for password hashing in a real-world scenario)
+//     newUser.password = hashAndSaltPassword(newUser.password);
+
+//     const result = await libraryUsers.insertOne(newUser);
+//     res.status(201).json({ message: 'User signed up successfully', location: `/api/users/${result.insertedId}` });
+//   } catch (err) {
+//     res.status(400).json({ message: 'Bad Request' });
+//   }
+// });
+
+app.post('/User', async (req, res) => {
+  const newUser = req.body;
+  try {
+    newUser.password = hashAndSaltPassword(newUser.password);
+    const result = await libraryUsers.insertOne(newUser);
+    res.status(201).json({ message: 'User signed up successfully', location: `/User/${result.insertedId}` });
+  } catch (err) {
+    res.status(400).json({ message: 'Bad Request' });
+  }
+
+});
+
+// Login a user
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await libraryUsers.findOne({ email });
+
+    if (user) {
+      // Compare the provided password with the hashed password using bcrypt
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (passwordMatch) {
+        res.status(200).json({ message: 'User logged in successfully', user });
+      } else {
+        res.status(401).json({ message: 'Incorrect password' });
+      }
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 // Start the server and connect to MongoDB
 start();
