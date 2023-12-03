@@ -8,7 +8,7 @@ import CheckedOutBooks from './routes/CheckedOutBooks';
 import CheckIn from './routes/CheckIn';
 import CheckOut from './routes/CheckOut';
 import Login from "./routes/login";
-import SignUp from "./routes/signUp";
+import SignUp from "./routes/signUp.js";
 
 function App() {
   return (

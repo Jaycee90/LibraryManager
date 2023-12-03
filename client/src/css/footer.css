@@ -15,7 +15,8 @@
         font-size:20px;
     }
     .Box {
-        background:  linear-gradient(42deg, rgb(92, 87, 180) 0%, rgb(58, 58, 240) 53%, rgb(219, 40, 142) 100%);
+        background: linear-gradient(42deg, rgb(290, 104, 153) 0%,rgb(0, 153, 204) 100%, rgb(125, 125, 190) 30%);
+        /* background:  linear-gradient(42deg, rgb(92, 87, 180) 0%, rgb(58, 58, 240) 53%, rgb(219, 40, 142) 100%); */
         bottom: 0;
         padding-top:20px;
         overflow: hidden;

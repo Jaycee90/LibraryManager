@@ -22,7 +22,7 @@ export default function Navbar() {
         <a href="checkedoutbook">Checked Out Book</a>
         <a href="checkin">Check in</a>
         <a href="checkout">Check Out</a> 
-        <a href="home">Home</a>      
+        <a href="home">Home</a>    
        
       </div>
     </div>

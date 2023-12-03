@@ -251,8 +251,9 @@ body{
     justify-content: center;
     align-items: center;
     padding-top:25px;
-    background:  linear-gradient(42deg, rgba(2,0,36,1) 0%, rgba(42,42,103,1) 53%, rgba(226,100,172,1) 100%);
-}
+    /* background:  linear-gradient(42deg, rgba(2,0,36,1) 0%, rgba(42,42,103,1) 53%, rgba(226,100,172,1) 100%); */
+    background: linear-gradient(42deg, rgb(0, 153, 204) 30%, rgb(290, 104, 153) 30%, rgb(125, 125, 190) 90%);
+  }
 
 
 .link-wrapper{
@@ -307,7 +308,7 @@ body{
 }
 
 a.link:hover {
-    background-color: rgba(216, 202, 202, 0.505);
+    background-color: rgba(54, 213, 42, 0.505);
     color: #ffffff;
     text-decoration: none;
 }
