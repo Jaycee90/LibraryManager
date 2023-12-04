@@ -67,66 +67,65 @@ import React, { useState } from 'react';
       } catch (error) {
         console.error('Error signing up:', error);
       }
-    };
+    }; 
     
     return (
       <div>
         <div className="Welc-box">
-          <p>Welcome to the Library Check-In Interface. Here, you can check in books that are currently available for checkout.</p>
+          <p>New here? Let's get started! Fill out the form to create your account.</p>
         </div>
 
         <div className="container">
           <div className="left-section">
-          <label>
+            <label>
             First Name:
             <input 
               type="text" value={userInfo.name} onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} 
-              placeholder="Enter your first name"
-            />
-          </label>
-          <label>
-            Last Name:
-            <input type="text" 
-            value={userInfo.lastName} onChange={(e) => setUserInfo({ ...userInfo, lastName: e.target.value })} />
-          </label>
-          <label>
-            Email:
-            <input type="text" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
-          </label>
-          <label>
-            Birthdate:
-            <input type="text" value={userInfo.birthdate} onChange={(e) => setUserInfo({ ...userInfo, birthdate: e.target.value })} />
-          </label>
-        </div>
+              placeholder="Enter your first name"/>
+            </label>
+            <label>
+              Last Name:
+              <input type="text" 
+                value={userInfo.lastName} onChange={(e) => setUserInfo({ ...userInfo, lastName: e.target.value })} />
+            </label>
+            <label>
+              Email:
+              <input type="text" value={userInfo.email} onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })} />
+            </label>
+            <label>
+              Birthdate:
+              <input type="text" value={userInfo.birthdate} onChange={(e) => setUserInfo({ ...userInfo, birthdate: e.target.value })} />
+            </label>
+          </div>
         
-        <div className="right-section">
-        <label>
-            Password:
-            <input type="text" value={userInfo.password} onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })} />
-          </label>
+          <div className="right-section">
+            <label>
+              Password:
+              <input type="text" value={userInfo.password} onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })} />
+            </label>
 
-          <label>
-            Phone:
-            <input type="text" value={userInfo.phone} onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })} />
-          </label>
+            <label>
+              Phone:
+              <input type="text" value={userInfo.phone} onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })} />
+            </label>
 
-          <label>
-            Gender:
-            <select value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.options[e.target.selectedIndex].value })}>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </label>
+            <label>
+              Gender:
+              <select value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.options[e.target.selectedIndex].value })}>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
 
-          {/* <label>
-            Gender:
-            <input type="text" value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })} />
-          </label> */}
+            {/* <label>
+              Gender:
+              <input type="text" value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })} />
+            </label> */}
 
-          <button type="button" onClick={handleSignUp}>Sign Up</button>
+            <button type="button" onClick={handleSignUp}>Sign Up</button>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
