@@ -48,14 +48,6 @@ const Home = () => {
         Explore the scenic beauty that shaped the early years and discover the path that led to success.
       </p>
 
-      {/* <div>
-        <Link to="/login">
-          <button style={buttonStyle}>Login</button>
-        </Link>
-        <Link to="/signup">
-          <button style={buttonStyle}>Sign Up</button>
-        </Link>
-      </div> */}
       <div>
         <img
           src={imageSource}
