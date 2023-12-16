@@ -3,7 +3,6 @@ import cors from "cors";
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import "./loadEnvironment.mjs";
-import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -127,32 +126,10 @@ app.delete('/books/:id', async (req, res) => {
   }
 });
 
-// Hash and salt password using bcrypt
-async function hashAndSaltPassword(password) {
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-  return hashedPassword;
-}
-
-// Add a new user to the library
-// app.post('/api/signup', async (req, res) => {
-//   const newUser = req.body;
-//   try {
-//     // Hash and salt the password before storing it
-//     // (use a proper library like bcrypt for password hashing in a real-world scenario)
-//     newUser.password = hashAndSaltPassword(newUser.password);
-
-//     const result = await libraryUsers.insertOne(newUser);
-//     res.status(201).json({ message: 'User signed up successfully', location: `/api/users/${result.insertedId}` });
-//   } catch (err) {
-//     res.status(400).json({ message: 'Bad Request' });
-//   }
-// });
-
+// Allow user to create an account
 app.post('/User', async (req, res) => {
   const newUser = req.body;
   try {
-    newUser.password = hashAndSaltPassword(newUser.password);
     const result = await libraryUsers.insertOne(newUser);
     res.status(201).json({ message: 'User signed up successfully', location: `/User/${result.insertedId}` });
   } catch (err) {
@@ -169,18 +146,18 @@ app.post('/api/login', async (req, res) => {
     const user = await libraryUsers.findOne({ email });
 
     if (user) {
-      // Compare the provided password with the hashed password using bcrypt
-      const passwordMatch = await bcrypt.compare(password, user.password);
-
+      // Compare the provided password with the stored password 
+      const passwordMatch = await compare(password, user.password);
       if (passwordMatch) {
         res.status(200).json({ message: 'User logged in successfully', user });
       } else {
-        res.status(401).json({ message: 'Incorrect password' });
+        res.status(401).json({ message: 'Incorrect email or password!' });
       }
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Incorrect email/password' });
     }
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });

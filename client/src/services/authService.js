@@ -12,9 +12,9 @@ const authService = {
     }
   },
 
-  signUp: async (user) => {
+  signUp: async (User) => {
     try {
-      const response = await axios.post(`${API_URL}/api/signup`, user);
+      const response = await axios.post(`${API_URL}/api/signup`, User);
       return response.data;
     } catch (error) {
       throw error.response.data;

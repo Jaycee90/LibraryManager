@@ -9,9 +9,17 @@ const Login = () => {
     try {
       const credentials = { username, password };
       const response = await authService.login(credentials);
-      console.log(response); // Handle successful login
+
+      if (response.ok) {
+        alert('Login successful'); 
+        // Optionally, you can redirect the user to a different page after successful login.
+      } else if (response.status === 401) {
+        alert('Incorrect username or password. Please try again.');
+      } else {
+        console.error('Failed to log in'); // Handle other error cases
+      }
     } catch (error) {
-      console.error(error); // Handle login failure
+      console.error('Error during login:', error); // Handle login failure
     }
   };
 
