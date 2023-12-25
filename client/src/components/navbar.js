@@ -12,7 +12,7 @@ export default function Navbar() {
         <form action="/test">
           <input 
             type="text" 
-            placeholder="Search for venues... "
+            placeholder="Search for books... "
             style={{ backgroundColor:"#fff" , color:'#747474', paddingBottom:'10px', marginTop:'0px', borderRadius:'10px'}}
             inputProps={{ style: { backgroundColor: "#fff", color:'#747474'} }}
             />
