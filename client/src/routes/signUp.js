@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 //import authService from '../services/authService';
+import { Link } from 'react-router-dom';
 
 
   function SignUp() {
@@ -123,6 +124,11 @@ import React, { useState } from 'react';
             </label> */}
 
             <button type="button" onClick={handleSignUp}>Sign Up</button>
+
+            <p>
+              Already have account with us?
+              <Link to="/login"> Login</Link>
+            </p>
           </div>
         </div>
       </div>
