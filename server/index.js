@@ -3,6 +3,7 @@ import cors from "cors";
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import "./loadEnvironment.mjs";
+import { compare } from "bcrypt";
 
 dotenv.config();
 
@@ -143,18 +144,18 @@ app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await libraryUsers.findOne({ email });
+    const User = await libraryUsers.findOne({ email });
 
-    if (user) {
+    if (User) {
       // Compare the provided password with the stored password 
-      const passwordMatch = await compare(password, user.password);
+      const passwordMatch = await compare(password, User.password);
       if (passwordMatch) {
-        res.status(200).json({ message: 'User logged in successfully', user });
+        res.status(200).json({ message: 'User logged in successfully', User });
       } else {
         res.status(401).json({ message: 'Incorrect email or password!' });
       }
     } else {
-      res.status(404).json({ message: 'Incorrect email/password' });
+      res.status(404).json({ message: 'User not found' });
     }
   } catch (err) {
     console.error(err);

@@ -3,36 +3,39 @@ import authService from '../services/authService';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // eslint-disable-next-line 
+  const [error, setError] = useState('');
   const arboretum='https://i.ibb.co/vHpkWtw/Nature-min.jpg';
   const bookShop='https://i.ibb.co/w7VMDhp/daria-nepriakhina-x-Y55b-L5m-ZAM-unsplash.jpg';
 
   const handleLogin = async () => {
     try {
-      const credentials = { username, password };
+      const credentials = { email, password };
+      console.log("email", email, "password", password);
       const response = await authService.login(credentials);
-
-      if (response.ok) {
-        alert('Login successful'); 
-        // Optionally, you can redirect the user to a different page after successful login.
-      } else if (response.status === 401) {
-        alert('Incorrect username or password. Please try again.');
+  
+      if (response.message === 'User logged in successfully') {
+        alert('Login successful');
+        
       } else {
-        console.error('Failed to log in'); // Handle other error cases
-      }
+        setError('Incorrect username or password. Please try again.');
+      } 
     } catch (error) {
-      console.error('Error during login:', error); // Handle login failure
+      console.error('Error during login:', error);
+      setError('Error during login. Please try again');
     }
   };
+  
 
   return (
     <div className='container'>
       <div className='right-section'>
         <h2>Login to Access Our Services</h2>
         <label>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          Email:
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label>
           Password:

@@ -251,7 +251,6 @@ body{
     justify-content: center;
     align-items: center;
     padding-top:25px;
-    /* background:  linear-gradient(42deg, rgba(2,0,36,1) 0%, rgba(42,42,103,1) 53%, rgba(226,100,172,1) 100%); */
     background: linear-gradient(42deg, rgb(0, 153, 204) 30%, rgb(290, 104, 153) 30%, rgb(125, 125, 190) 90%);
   }
 
@@ -374,3 +373,6 @@ input[type=text], input[type=email]{
   font-size: 18px;
   border-radius:15px;
 }
+
+
+

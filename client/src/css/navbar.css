@@ -17,7 +17,6 @@
   
   .navigation-bar {
     overflow: hidden;
-    /* background: linear-gradient(42deg, rgb(110, 106, 226) 0%, rgb(42, 42, 227) 73%, rgb(210, 22, 128) 100%); */
     background: linear-gradient(42deg, rgb(290, 104, 153) 0%, rgb(0, 153, 204) 100%, rgb(125, 125, 190) 20%);
   }
   
@@ -57,6 +56,37 @@
     font-size: 15px;
     width: 250px;
     border: none;
+  }
+
+  .welcome-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .welcome-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #6b9cb7;
+    min-width: 200px;
+    text-align: center;
+    left: 0;
+  }
+  
+  .welcome-dropdown-content a {
+    color: black;
+    padding: 16px 0;
+    text-decoration: none;
+    display: inline-block;
+    width: 100px;
+    box-sizing: border-box;
+  }
+  
+  .welcome-dropdown-content a:hover {
+    background-color: #34c366;
+  }
+  
+  .welcome-dropdown:hover .welcome-dropdown-content {
+    display: block;
   }
   
 }
