@@ -48,7 +48,7 @@ app.use(function (req, res, next) {
 // Middleware to parse request body as JSON
 app.use(express.json());
 
-// Generic error handling middleware
+// Generic error handling middleware.
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Internal Server Error' });
