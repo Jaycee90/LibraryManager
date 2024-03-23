@@ -56,7 +56,7 @@ The Library Management System is a web application designed to manage the borrow
     npm start
     ```
 
-4. Access the application in your web browser at `http://localhost:3000`.
+4. Access the application in your web browser at [https://readhub-murex.vercel.app]
 
 ## Contributors
 
