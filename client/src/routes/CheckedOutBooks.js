@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import '../css/CheckedOut.css'; // Import the CSS file for checked-out books styling
 
 function CheckedOutBooks() {
   const [checkedOutBooks, setCheckedOutBooks] = useState([]);
-  const myImage = "https://i.ibb.co/xmyYbfZ/LLLP-poetry-competition-image-003.jpg";
 
   useEffect(() => {
-    // Fetch the list of checked-out books from my server
+    // Fetch the list of checked-out books from the server
     fetch('http://localhost:5001/books?avail=false') 
       .then(response => response.json())
       .then(data => setCheckedOutBooks(data))
@@ -50,13 +50,13 @@ function CheckedOutBooks() {
   };  
   
   return (
-    <div>
-      <div className="Welc-box">
+    <div className="checked-out-container">
+      <div className="welcome-message">
         <p>The following books are Checked out, we will notify you as soon as they are ready</p>
       </div>
-      <div className='container'>
-        <div className='left-section'>
-          <table style={{ color: '#000000' }}>
+      <div className="checked-out-list">
+        <div className="table-wrapper">
+          <table>
             <thead>
               <tr>
                 <th className='nameColumn'>Book Name</th>
@@ -66,7 +66,6 @@ function CheckedOutBooks() {
                 <th className='returnColumn'>Return</th>
               </tr>
             </thead>
-
             <tbody>
               {checkedOutBooks.map((book, index) => (
                 <tr key={book.id}>
@@ -81,16 +80,6 @@ function CheckedOutBooks() {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className='right-section'>
-          <p>Our readers have turned book checkouts into coffee-fueled skyscrapers. Sip, read, repeat!</p>
-          <img
-            src={myImage}
-            alt= "Books"
-            width="100%"
-            height="500"
-          />
         </div>
       </div>
     </div>

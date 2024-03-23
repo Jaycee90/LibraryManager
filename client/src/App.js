@@ -9,6 +9,7 @@ import CheckIn from './routes/CheckIn';
 import CheckOut from './routes/CheckOut';
 import Login from "./routes/login";
 import SignUp from "./routes/signUp.js";
+import './css/App.css';
 
 function App() {
   return (

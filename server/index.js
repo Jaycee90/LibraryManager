@@ -8,8 +8,12 @@ import { compare } from "bcrypt";
 dotenv.config();
 
 const app = express();
-app.use(cors());
-
+// Fix cors issue by only including methods i used in my backend code!
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 let db;
 let libraryBooks;
@@ -35,16 +39,6 @@ async function start() {
   }
 }
 
-// Middleware to enable CORS
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  if (req.method === 'OPTIONS') res.sendStatus(200); // Preflight request handling
-  else next();
-});
-
-
 // Middleware to parse request body as JSON
 app.use(express.json());
 
@@ -60,13 +54,13 @@ app.get('/books', async (req, res) => {
   try {
     if (avail === 'true') {
       const availableBooks = await libraryBooks.find({ avail: true }).toArray();
-      res.json(availableBooks.map(({ id, title, author, isbn }) => ({ id, title, author, isbn })));
+      res.json(availableBooks.map(({ id, title, author, isbn,  ebook }) => ({ id, title, author, isbn, ebook })));
     } else if (avail === 'false') {
       const checkedOutBooks = await libraryBooks.find({ avail: false }).toArray();
-      res.json(checkedOutBooks.map(({ id, title, author,isbn, dueDate }) => ({ id, title, author, isbn, dueDate })));
+      res.json(checkedOutBooks.map(({ id, title, author,isbn, dueDate, ebook }) => ({ id, title, author, isbn, dueDate, ebook })));
     } else {
       const allBooks = await libraryBooks.find().toArray();
-      res.json(allBooks.map(({ id, title, author, isbn, avail }) => ({ id, title, author, isbn, avail })));
+      res.json(allBooks.map(({ id, title, author, isbn, avail, ebook }) => ({ id, title, author, isbn, avail, ebook })));
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -140,22 +134,21 @@ app.post('/User', async (req, res) => {
 });
 
 // Login a user
-app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
+app.post('/credentials', async(req, res) => {
 
   try {
-    const User = await libraryUsers.findOne({ email });
+    const User = await libraryUsers.findOne({ email: req.body.email });
 
     if (User) {
       // Compare the provided password with the stored password 
-      const passwordMatch = await compare(password, User.password);
+      const passwordMatch = req.body.password === User.password;
       if (passwordMatch) {
         res.status(200).json({ message: 'User logged in successfully', User });
       } else {
-        res.status(401).json({ message: 'Incorrect email or password!' });
+        res.status(400).json({ message: 'Incorrect email or password!' });
       }
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(400).json({ message: 'User not found' });
     }
   } catch (err) {
     console.error(err);

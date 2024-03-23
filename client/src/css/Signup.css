@@ -1,0 +1,61 @@
+/* Default styles */
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+    
+  }
+  
+  .Welc-box {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .left-section,
+  .right-section {
+    width: 50%; /* Adjust as needed */
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 2%;
+    background-color: transparent;
+  }
+  
+  .left-section label,
+  .right-section label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 8px;
+    
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    width: 100%;
+    background-color: gray;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Media query for small screens */
+  @media (max-width: 768px) {
+    .left-section,
+    .right-section {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  

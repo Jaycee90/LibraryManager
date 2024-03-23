@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-//import authService from '../services/authService';
 import { Link } from 'react-router-dom';
+import '../css/Signup.css';
 
 
   function SignUp() {
@@ -113,22 +113,19 @@ import { Link } from 'react-router-dom';
             <label>
               Gender:
               <select value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.options[e.target.selectedIndex].value })}>
+                <option value="Select">Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </label>
 
-            {/* <label>
-              Gender:
-              <input type="text" value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })} />
-            </label> */}
-
             <button type="button" onClick={handleSignUp}>Sign Up</button>
-
+            
             <p>
               Already have account with us?
-              <Link to="/login"> Login</Link>
+              <button><Link to="/login" style={{ textDecoration: 'none' }}> Login</Link></button>
             </p>
+            
           </div>
         </div>
       </div>

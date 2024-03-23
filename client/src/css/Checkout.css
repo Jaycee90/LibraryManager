@@ -1,0 +1,51 @@
+.container {
+  padding: 20px;
+  background-color: #414549;;
+  display: flex;
+  justify-content: center;
+}
+
+.left-section {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #414549;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .left-section {
+    overflow-x: auto;
+  }
+}

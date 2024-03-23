@@ -75,7 +75,8 @@ function CheckIn() {
   return (
     <div>
       <div className="Welc-box">
-        <p>Welcome to the Library Check-In Interface. Here, you can check in books that are currently available for checkout.</p>
+      <p>Welcome to the Library Check-In Interface.</p>
+      <p>Are you eager to enrich our library with an intriguing book? Simply complete the form below!</p>
       </div>
 
       <div className="container">

@@ -1,98 +1,167 @@
+/* Welcome box */
 .Welc-box {
-    background: linear-gradient(42deg, rgb(290, 104, 153) 0%, rgb(0, 153, 204) 30%, rgb(125, 125, 190) 90%);
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #36e1a5;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 18px; 
-    font-weight: bold;
-    line-height: 2;
+  background-color: #414549;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px; 
+  font-weight: bold;
+  line-height: 2;
+  color: whitesmoke;
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading styles */
+h1 {
+  text-align: center;
+  font-size: 32px; /* Increased font size */
+}
+
+/* Container styles */
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* Section styles */
+.left-section,
+.right-section {
+  flex: 1;
+  margin: 10px;
+  padding: 20px;
+  
+  border-radius: 8px;
+  background-color: rgb(176, 225, 241);
+}
+
+/* Input and select styles */
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  background-color: #36e1a5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  white-space: nowrap;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Column width styles */
+.nameColumn {
+  width: 30%;
+  min-width: 100px; 
+}
+
+.authorColumn {
+  width: 20%;
+  min-width: 80px; 
+}
+
+.dateColumn {
+  width: 25%;
+  min-width: 120px; 
+}
+
+.isbnColumn {
+  width: 35%;
+  min-width: 150px; 
+}
+
+.statusColumn {
+  width: 35%;
+  min-width: 100px; 
+}
+
+/* Adjustments for smaller screens */
+
+/* Make welcome box responsive */
+.Welc-box {
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* Adjust margins and paddings for smaller screens */
+.container {
+  flex-direction: column; /* Stack items vertically on smaller screens */
+}
+
+.left-section,
+.right-section {
+  margin: 5px;
+  padding: 10px;
+}
+
+/* Make table responsive */
+.nameColumn,
+.authorColumn,
+.dateColumn,
+.isbnColumn,
+.statusColumn {
+  min-width: auto; /* Remove minimum widths */
+}
+
+/* Adjust font size for smaller screens */
+h1 {
+  font-size: 24px;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+  /* Adjust styles for screens up to 768px wide */
+  .container {
+    flex-direction: column; /* Stack items vertically */
   }
 
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
   .left-section,
   .right-section {
-    flex: 1;
-    margin: 10px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: rgb(176, 225, 241);
-  }
-  
-  input[type="text"],
-  select {
-    width: 100%;
+    margin: 5px;
     padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
   }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+  /* Adjust styles for screens up to 576px wide (smaller devices) */
+  .Welc-box {
+    font-size: 12px;
   }
 
-  th, td {
-    text-align: left;
-    padding: 8px;
-    white-space: nowrap;
+  h1 {
+    font-size: 20px;
   }
-
-  tr:nth-child(even) {background-color: #f2f2f2;}
-
-  .nameColumn {
-    width: 30%;
-    min-width: 100px; 
-  }
-  
-  .authorColumn {
-    width: 20%;
-    min-width: 80px; 
-  }
-  
-  .dateColumn {
-    width: 25%;
-    min-width: 120px; 
-  }
-  
-  .isbnColumn {
-    width: 35%;
-    min-width: 150px; 
-  }
-  
-  .statusColumn {
-    width: 35%;
-    min-width: 100px; 
-  }
-  
+}

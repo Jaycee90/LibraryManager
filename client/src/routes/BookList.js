@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import '../css/BookList.css'; // Import the CSS file for book list styling
 
 function BookList() {
   const [books, setBooks] = useState([]);
-  const natureImage='https://i.ibb.co/TcKDXNR/Naturepic-min.jpg';
 
   useEffect(() => {
     // Fetch the list of all books from the server
@@ -16,49 +16,34 @@ function BookList() {
   }, []);
 
   return (
-    <div>
-      <div className="Welc-box">
-        <p>Welcome to the Library Book-List Interface. Below is our book collection</p>
+    <div className="booklist-container">
+      <div className="welcome-message">
+        <h1>Below is our books collection, grab some for your choice</h1>
       </div>
-      <div className='container'>
-        <div className='left-section'>
-          <table style={{ color: '#000000' }}>
+      <div className="book-list">
+        <div className="table-wrapper">
+          <table>
             <thead>
               <tr>
-                <th className='idColumn'>ID</th>
-                <th className='nameColumn'>Book Title</th>
-                <th className='authorColumn'>Author</th>
-                <th className='dateColumn'>ISBN</th>
-                <th className='statusColumn'>Availability</th>
+                <th>ID</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Availability</th>
               </tr>
             </thead>
-
             <tbody>
-              {books.map((book, index) => (
+              {books.map(book => (
                 <tr key={book.id}>
                   <td>{book.id}</td>
                   <td>{book.title}</td>
                   <td>{book.author}</td>
                   <td>{book.isbn}</td>
-                  <td>{book.avail ? 'Available' : 'Checked out'}</td>
+                  <td><div className={book.avail ? 'available' : 'checked-out'}>{book.avail ? 'Available' : 'Checked out'}</div></td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className='right-section'>
-          <p>Immerse yourself in the beauty of nature; 
-            grab a book, find a peaceful spot, and let the captivating pages transport 
-            you to new worlds as you enjoy the tranquility of the great outdoors.
-          </p>
-
-          <img
-            src={natureImage}
-            alt= "Books"
-            width="90%"
-            height="700"
-          />
         </div>
       </div>
     </div>
